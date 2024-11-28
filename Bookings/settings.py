@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-=c(x(6j05_7ir+15&bbt31=rd+khv#3vrh78+z&%srez%(n=(x
 DEBUG = True
 
 ALLOWED_HOSTS = ['zimstays-production.up.railway.app', 'https://zimstays-production.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['zimstays-production.up.railway.app', 'https://zimstays-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://zimstays-production.up.railway.app']
 
 
 # Application definition
