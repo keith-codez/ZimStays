@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+
+{% block header_text %}Congratulations!{% endblock %}
+{% block sub_header_text %} {% endblock %}
+{% block content %}
+<div class="container text-center my-5">
+    <div class="alert alert-success shadow-sm">
+        <h2 class="display-4 fw-bold text-success">Contact Form Submitted</h2>
+        <p class="lead text-muted">We will get back to you shortly</p>
+    </div>
+    <div class="mt-4">
+        <a href="{% url 'index' %}" target="_blank" class="btn btn-dark px-4 py-2 fw-semibold">
+            <i class="bi bi-house-door me-2"></i> Return to Homepage
+        </a>
+    </div>
+</div>
+{% endblock %}

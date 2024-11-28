@@ -1,0 +1,218 @@
+{% extends "master.html" %}
+
+{% load static %}
+{% block title %}
+Home Page
+{% endblock %}
+
+{% block header_text %}Browse our holiday homes.{% endblock %}
+{% block sub_header_text %}Premium accommodation at affordable rates!{% endblock %}
+          
+{% block content %}
+<div class="container w-75 my-3 py-4 border position-relative">
+  <form method="GET" action="{% url 'filter_homes' %}">
+    <div class="row g-3 align-items-stretch">
+        <!-- Destination Selection -->
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="form-floating">
+                <select name="destination" class="form-select" id="destination">
+                    <option value="">Select City</option>
+                    {% for city in cities %}
+                        <option value="{{ city.id }}" {% if city.id == request.GET.destination %} selected {% endif %}>{{ city.name }}</option>
+                    {% endfor %}
+                </select>
+                <label for="destination">Select your destination</label>
+            </div>
+        </div>
+        
+        <!-- Arrival Date -->
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="form-floating">
+                <input name="arrival_date" class="form-control" type="date" placeholder="Arrival date" id="arrival_date" value="{{ request.GET.arrival_date }}">
+                <label for="arrival_date">Arrival date</label>
+            </div>
+        </div>
+        
+        <!-- Departure Date -->
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="form-floating">
+                <input name="departure_date" class="form-control" type="date" placeholder="Departure date" id="departure_date" value="{{ request.GET.departure_date }}">
+                <label for="departure_date">Departure date</label>
+            </div>
+        </div>
+        
+        <!-- Number of Guests -->
+        <div class="col-lg-3 col-md-6 col-12">
+            <div class="form-floating">
+                <input name="guests" class="form-control" type="number" min="1" placeholder="Number of Guests" id="guests" value="{{ request.GET.guests }}">
+                <label for="guests">Number of Guests</label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="row mt-5">
+        <div class="col text-center">
+            <button type="submit" class="btn btn-primary btn-lg">Search</button>
+        </div>
+    </div>
+  </form>
+</div>
+
+<div class="d-flex justify-content-center my-5"><p class="fw-bold fs-1">Popular Destinations</p>
+</div>
+
+
+
+<div class="container col-xxl-8 col-xl-10 col-lg-12 col-md-12 col-sm-12 col-xs-12 my-5">
+  <!-- Harare -->
+  <div class="row my-5 py-5 align-items-center">
+    <div class="col-md-6">
+      <div id="carouselHarare" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner shadow-sm rounded">
+          <div class="carousel-item active">
+            <img src="{% static 'Images/Harare/Harare.jpeg' %}" class="img-fluid rounded" alt="Harare" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'Images/Harare/Harare1.jpeg' %}" class="img-fluid rounded" alt="Harare 1" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'Images/Harare/Harare2.jpeg' %}" class="img-fluid rounded" alt="Harare 2" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 my-3 text-end">
+      <h2>Explore Harare</h2>
+      <p>Harare, the bustling capital of Zimbabwe, offers vibrant markets, rich culture, and modern urban living. Plan your stay to explore the National Gallery, local restaurants, and nearby wildlife reserves.</p>
+      <a href="{% url 'location' %}?city=Harare" class="btn btn-lg btn-outline-primary shadow-sm rounded-pill">Learn More</a>
+    </div>
+  </div>
+
+  <!-- Victoria Falls -->
+  <div class="row my-5 py-5 align-items-center flex-md-row-reverse">
+    <div class="col-md-6">
+      <div id="carouselVicFalls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner shadow-sm rounded">
+          <div class="carousel-item active">
+            <img src="{% static 'Images/Vic_Falls/VicFalls.jpeg' %}" class="img-fluid rounded" alt="Vic Falls" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'Images/Vic_Falls/VicFalls1.jpeg' %}" class="img-fluid rounded" alt="Vic Falls 1" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'Images/Vic_Falls/VicFalls2.jpeg' %}" class="img-fluid rounded" alt="Vic Falls 2" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 my-3 text-start">
+      <h2>Discover Victoria Falls</h2>
+      <p>Known as "The Smoke That Thunders," Victoria Falls is one of the world's natural wonders. Experience breathtaking views, adventure sports, and the serene beauty of the Zambezi River.</p>
+      <a href="{% url 'location' %}?city=VicFalls" class="btn btn-lg btn-outline-primary shadow-sm rounded-pill">Learn More</a>
+    </div>
+  </div>
+
+  <!-- Vumba -->
+  <div class="row my-5 py-5 align-items-center">
+    <div class="col-md-6">
+      <div id="carouselVumba" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner shadow-sm rounded">
+          <div class="carousel-item active">
+            <img src="{% static 'Images/Vumba/Vumba.jpeg' %}" class="img-fluid rounded" alt="Vumba" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'Images/Vumba/Vumba1.jpeg' %}" class="img-fluid rounded" alt="Vumba 1" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'Images/Vumba/Vumba2.jpeg' %}" class="img-fluid rounded" alt="Vumba 2" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 my-3 text-end">
+      <h2>Relax in Vumba</h2>
+      <p>The Vumba Mountains offer tranquil retreats, misty mornings, and breathtaking vistas. Perfect for nature lovers seeking peace, hiking trails, and wildlife sanctuaries.</p>
+      <a href="{% url 'location' %}?city=Vumba" class="btn btn-lg btn-outline-primary shadow-sm rounded-pill">Learn More</a>
+    </div>
+  </div>
+
+  <!-- Kariba -->
+  <div class="row my-5 py-5 align-items-center flex-md-row-reverse">
+    <div class="col-md-6">
+      <div id="carouselKariba" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner shadow-sm rounded">
+          <div class="carousel-item active">
+            <img src="{% static 'Images/Kariba/Kariba.jpeg' %}" class="img-fluid rounded" alt="Kariba" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'Images/Kariba/Kariba1.jpeg' %}" class="img-fluid rounded" alt="Kariba 1" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'Images/Kariba/Kariba2.jpeg' %}" class="img-fluid rounded" alt="Kariba 2" style="max-width: 100%; max-height: 400px; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 my-3 py-5" >
+      <h2>Experience Kariba</h2>
+      <p>Lake Kariba offers serene views, houseboat adventures, and incredible sunsets. A perfect getaway for fishing, boating, and relaxation amid nature.</p>
+      <a href="{% url 'location' %}?city=Kariba" class="btn btn-lg btn-outline-primary shadow-sm rounded-pill">Learn More</a>
+    </div>
+  </div>
+</div>
+
+
+<div class="d-flex justify-content-center my-5">
+  <p class="fw-bold fs-1">Why ZimShortstays?</p>
+</div>
+
+<div class="container-fluid border">
+  <div class="row g-4 justify-content-center">
+    <!-- First Column: Convenience -->
+    <div class="my-5 col-lg-6 col-xl-4 col-xxl-4">
+      <div class="text-center my-3">
+        <img src="{% static 'Images/Thumbnails/Convinience.jpeg' %}" class="img-thumbnail" style="width: 250px; height: 250px; object-fit: cover;" alt="Convenience">
+        <div class="my-3"><p class="fw-semibold fs-4">Convenience at Your Fingertips</p></div>
+        <div class="my-3 mx-auto w-75 px-3">
+          <p class="fw-normal">
+            Book your ideal stay with just a few clicks. Our user-friendly platform simplifies the booking process so you can focus on your travel plans.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Second Column: Affordability -->
+    <div class="my-5 col-lg-6 col-xl-4 col-xxl-4">
+      <div class="text-center my-3">
+        <img src="{% static 'Images/Thumbnails/Affordable.jpeg' %}" class="img-thumbnail" style="width: 250px; height: 250px; object-fit: cover;"  alt="Affordability">
+        <div class="my-3">
+          <p class="fw-semibold fs-4">Affordable Luxury</p>
+        </div>
+        <div class="my-3 mx-auto w-75 px-3">
+          <p class="fw-normal">
+            Discover premium accommodations without breaking the bank. ZimShortstays offers competitive pricing for unforgettable experiences.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Third Column: Local Expertise -->
+    <div class="my-5 col-lg-6 col-xl-4 col-xxl-4">
+      <div class="text-center my-3">
+        <img src="{% static 'Images/Thumbnails/Locals.jpeg' %}" class="img-thumbnail" style="width: 250px; height: 250px; object-fit: cover;" alt="Local Expertise">
+        <div class="my-3">
+          <p class="fw-semibold fs-4">Guided by Local Experts</p>
+        </div>
+        <div class="my-3 mx-auto w-75 px-3">
+          <p class="fw-normal">
+            Tap into authentic local knowledge. Our team ensures you enjoy the best Zimbabwe has to offer, from hidden gems to iconic landmarks.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+{% endblock %}
+    

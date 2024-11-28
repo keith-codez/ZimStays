@@ -1,0 +1,114 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+{% block header_text %}{{ home.title }}{% endblock %}
+{% block sub_header_text %}{% endblock %}
+
+{% block content %}
+<div class="container col-lg-6 col-xl-6 col-xxl-5 py-2" style="min-width: 300px;">
+    <div id="carouselExampleIndicators{{ home.id }}" class="carousel slide" data-bs-ride="carousel">
+        <!-- Carousel Indicators -->
+        <div class="carousel-indicators">
+            {% for image in home.images.all %}
+            <button 
+                type="button" 
+                data-bs-target="#carouselExampleIndicators{{ home.id }}" 
+                data-bs-slide-to="{{ forloop.counter0 }}" 
+                {% if forloop.first %} class="active" aria-current="true" {% endif %} 
+                aria-label="Slide {{ forloop.counter }}">
+            </button>
+            {% endfor %}
+        </div>
+
+        <!-- Carousel Inner -->
+        <div class="carousel-inner">
+            {% for image in home.images.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img 
+                    src="{{ image.image.url }}" 
+                    class="d-block w-100" 
+                    alt="Image {{ forloop.counter }}" 
+                    style="height: 500px; object-fit: cover; border-radius: 10px;">
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators{{ home.id }}" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators{{ home.id }}" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+
+<div class = "container col-lg-6 col-xl-6 col-xxl-5 my-3 ">
+    <div>
+        <p>
+            <em>
+             {{home.subheading}}
+            </em>
+        </p>
+        <div class=" fw-bold my-2">
+            <span class="d-inline">{{home.guests}} Guests</span>,
+            <span class="d-inline">{{home.beds}} Beds</span>,
+            <span class="d-inline">{{home.bathrooms}} Bathrooms</span>
+          </div>
+          <div class=" fw-semibold my-2">
+            <span class="d-inline">${{home.price_per_night|floatformat:0}} per night</span>
+          </div>
+          <div class="d-flex align-items-center my-2">
+            <i class="bi bi-star-fill text-warning me-1"></i> <!-- Filled star icon -->
+            <p class="fw-semibold mb-0">{{ home.rating }} stars</p> <!-- Add rating text -->
+        </div>
+    </div>
+    </div>
+</div>
+
+<div class = "container col-lg-6 col-xl-6 col-xxl-5 border-top">
+    <div class="my-3 h1 fw-semibold">Features</div>
+    <div class="home-amenities">
+        <div class="row">
+            <div class="col-md-6">
+                <ul class="list-unstyled">
+                    {% for amenity in home.amenities.all %}
+                    {% if forloop.counter0|divisibleby:4 and forloop.counter > 4 %}
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <ul class="list-unstyled">
+                    {% endif %}
+                    <li class="d-flex align-items-center mb-3">
+                        <!-- Adjust font size for icon and text -->
+                        <i class="{{ amenity.icon_class }} me-2 fs-4"></i>
+                        <span class="fw-light fs-5">{{ amenity.name }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class = "container col-lg-6 col-xl-6 col-xxl-5 border-top">
+    <div class="my-3 h1 fw-semibold">Description</div>
+    <div>
+        <p> {{home.description}}</p>
+    </div>
+</div>
+
+
+
+
+
+<!-- Sticky CTA for Larger Screens -->
+<div class="container-fluid mt-5 py-4 position-sticky bottom-0 bg-body border">
+    <div class="container text-center">
+        <a href="{% url 'make_reservation' home.id %}" target="_blank" class="btn btn-primary btn-lg w-50">
+            Reserve
+        </a>
+    </div>
+</div>
+{% endblock %}

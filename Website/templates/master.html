@@ -1,0 +1,179 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% endblock%}</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"> <!-- Font Awesome for social media icons -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <script src="{% static 'script.js' %}"></script>
+        <style>
+          .form-select {
+          font-size: 18px;
+        }
+        /* For Chrome, Safari, Edge, and Opera */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* For Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        .carousel-item img {
+          height: 350px; /* Set the height you want */
+          object-fit: cover; /* Crop the image to cover the container */
+          width: 100%; /* Ensure the width fills the container */
+        }
+        .fs-extra-small {
+          font-size: 13px; /* You can adjust this to your preferred size */
+      }
+        .fs-small {
+          font-size: 14px; /* You can adjust this to your preferred size */
+      }
+        @media (min-width: 768px) {
+          .carousel-item img {
+              height: 350px; /* Reduce height on larger screens */
+          }
+      }
+      
+      @media (min-width: 992px) {
+          .carousel-item img {
+              height: 300px; /* Further reduce height on wider screens */
+          }
+      }
+      
+      @media (min-width: 1200px) {
+          .carousel-item img {
+              height: 300px; /* Further reduce height on full screen */
+          }
+      }
+
+      .card-description {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Limit to 3 lines */
+        -webkit-box-orient: vertical;
+    }
+    .carousel-inner img {
+      height: 300px; /* Adjust the height as desired */
+      object-fit: cover; /* Ensures the images scale proportionally */
+    }
+    
+    @media (min-width: 1200px) { /* Specific for full screen or large screens */
+      .carousel-inner img {
+        height: 500px; /* Increase height for large screens */
+      }
+    }
+
+        </style>
+      </head>
+    <body>
+      <nav class="navbar navbar-expand-lg sticky-top" style="background-color:white;">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center text-dark" href="{% url 'index' %}">
+                <img src="{% static 'Images/Logo/Logo4.png' %}" alt="Logo" width="110" height="100" class="d-inline-block align-text-top me-2 mx-3">
+                <span class="d-none d-lg-inline fw-semibold h2 mx-4" style="font-family: 'EB Garamond', sans-serif;">ZimShortStays</span> <!-- Text only appears in large screens -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-underline me-auto mb-2 mb-lg-0 ms-auto">
+                  <li class="nav-item">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %} text-dark fs-5 fw-semibold" href="{% url 'index' %}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link {% if request.resolver_match.url_name == 'location' %}active{% endif %} text-dark fs-5 fw-semibold" href="{% url 'location' %}">Locations</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link {% if request.resolver_match.url_name == 'coming_soon' %}active{% endif %} text-dark fs-5 fw-semibold" href="{% url 'coming_soon' %}">Host Your Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link {% if request.resolver_match.url_name == 'coming_soon' %}active{% endif %} text-dark fs-5 fw-semibold" href="{% url 'coming_soon' %}">Deals</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link {% if request.resolver_match.url_name == 'about_us' %}active{% endif %} text-dark fs-5 fw-semibold" href="{% url 'about_us' %}">About Us</a>
+                  </li>
+                    {% block extra_navbar_items %}
+                    <!-- This block is for extra nav items -->
+                    {% endblock %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+          <div class="d-flex justify-content-center  mt-5 "><p class="fw-bold fs-1" style="font-family: 'EB Garamond', sans-serif;"> {% block header_text %}Default Header Text{% endblock %} </p></div>
+          <div class="d-flex justify-content-center  "><p class="fw-normal fs-5"> {% block sub_header_text %}Default Sub Header Text{% endblock %} </p></div>
+
+
+
+          {% block content%}
+          {% endblock %}
+
+          
+        <!-- Footer -->
+        <footer class="bg-light text-dark mt-auto py-4">
+          <div class="container text-center">
+            <div class="row">
+              <!-- Navigation Links -->
+              <div class="col-md-4 mb-3">
+                <h5>Navigation</h5>
+                <ul class="nav flex-column">
+                  <li class="nav-item">
+                    <a class="nav-link text-dark" href="{% url 'index' %}" target="_blank">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-dark" href="{% url 'location' %}" target="_blank">Locations</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-dark" href="{% url 'coming_soon' %}" target="_blank">Host Your Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-dark" href="{% url 'coming_soon' %}" target="_blank">Deals</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link text-dark" href="{% url 'about_us' %}" target="_blank">About Us</a>
+                  </li>
+                </ul>
+              </div>
+              
+              <!-- Social Media Icons -->
+              <div class="col-md-4 mb-3">
+                <h5>Follow Us</h5>
+                <div>
+                  <a href="https://www.facebook.com/ZimShortstays/" target="_blank" class="text-dark me-2 fs-3"><i class="fab fa-facebook"></i></a>
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=zimshortstays@gmail.com" target="_blank" class="text-dark me-2 fs-3"><i class="bi bi-envelope-at-fill"></i></a>
+                  <a href="https://www.instagram.com/zimshortstays_/" target="_blank" class="text-dark me-2 fs-3"><i class="fab fa-instagram"></i></a>
+                  <a href="https://l.facebook.com/l.php?u=https%3A%2F%2Fapi.whatsapp.com%2Fsend%3Fphone%3D%252B263772437723%26app%3Dfacebook%26entry_point%3Dpage_cta%26fbclid%3DIwZXh0bgNhZW0CMTAAAR3ik5jmtbrrlJ6ogSnUw4JEJ5fIvTPWW9-C-9OEx9I0PLXswgh3T2wSm0k_aem_YtfgQs0Fv1kB2mkyyOGC9Q&h=AT3LZWao0J99_rZ6s3IfylBt5eaS-CUU95wyqAhhWSN6Xrsn-rFxXn3fZxyQf2CRX-czXt70IpOU6Lwlr1--Tv8qAfTjEw-BG0uJgGfmS9JqGdFXaEvzeh7FhOlZ7ahe_lTISw" target="_blank" class="text-dark me-2 fs-3"><i class="bi bi-whatsapp"></i></a>
+                </div>
+              </div>
+              
+              <!-- Copyright -->
+              <div class="col-md-4 mb-3 text-md-end">
+                <p class="mb-0">&copy; 2024 ZimShortStays. All rights reserved.</p>
+              </div>
+            </div>
+          </div>
+        </footer>
+        {% block scripts %}
+        {% endblock %}
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+</html>

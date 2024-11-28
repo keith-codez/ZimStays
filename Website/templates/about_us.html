@@ -1,0 +1,97 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block header_text %}{% endblock %}
+{% block sub_header_text %}{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <!-- Website Information Section -->
+    <div class="text-center mb-5 my-5">
+        <h1 class="display-5 fw-bold my-5">Welcome to ZimShortstays!</h1>
+        <p class="lead text-muted my-5">
+            At ZimShortstays, we specialize in providing unforgettable stays in the heart of Zimbabwe. 
+            Whether you're visiting iconic destinations like Victoria Falls or exploring hidden gems, 
+            our team is here to ensure a seamless experience. Discover more about the people who make it all happen!
+        </p>
+    </div>
+
+    <!-- Team Members Section -->
+    <div class="row g-4 my-5">
+        <!-- Example Team Member -->
+        <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center p-3 shadow-sm rounded bg-light">
+                <!-- Profile Image -->
+                <img src="{% static 'Images/Thumbnails/Director.jpeg' %}" 
+                     alt="Team Member" 
+                     class="rounded-circle me-4" 
+                     style="width: 100px; height: 100px; object-fit: cover;">
+                <!-- Profile Info -->
+                <div>
+                    <h4 class="fw-bold">Linda Munjoma</h4>
+                    <p class="text-muted mb-1">Role: Founder & CEO</p>
+                    <p class="text-muted mb-1">Email: lmunjoma@gmail.com</p>
+                    <p class="text-muted">Phone: +263 772 437 723</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Example Team Member -->
+        <div class="col-12 col-md-6">
+            <div class="d-flex align-items-center p-3 shadow-sm rounded bg-light">
+                <!-- Profile Image -->
+                <img src="{% static 'Images/Thumbnails/ITManager.jpeg' %}" 
+                     alt="Team Member" 
+                     class="rounded-circle me-4" 
+                     style="width: 100px; height: 100px; object-fit: cover;">
+                <!-- Profile Info -->
+                <div>
+                    <h4 class="fw-bold">Keith Mwanandimai</h4>
+                    <p class="text-muted mb-1">Role: IT Manager</p>
+                    <p class="text-muted mb-1">Email: mnzconsulting@gmail.com</p>
+                    <p class="text-muted">Phone: +447 708 211 472</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container col-lg-6 col-xl-6 col-xxl-5 py-2 mt-4">
+    
+        <form method="POST" action="{% url 'about_us' %}">
+            {% csrf_token %}
+            <div class="text-center">
+                <p class="fw-semibold fs-4 mb-4 ">Contact Us</p>
+            </div>
+            <div class='row'>
+                <div class="col-12 my-1">
+                    {{form.first_name|as_crispy_field}}
+                </div>
+            </div>
+            <div class='row'>
+                <div class="col-12 my-1 ">
+                    {{form.last_name|as_crispy_field}}
+                </div>
+            </div>
+            <div class='row'>
+                <div class="col-12 my-1 ">
+                    {{form.email|as_crispy_field}}
+                </div>
+            </div>
+            <div class='row'>
+                <div class="col-12 my-1 ">
+                    {{form.phone_number|as_crispy_field}}
+                </div>
+            </div>
+            <div class='row'>
+                <div class="col-12 my-1 ">
+                    {{form.message|as_crispy_field}}
+                </div>
+            </div>
+            
+    
+    
+            <div class="d-grid col-6 mx-auto gap-2 my-4">
+                <button class="btn btn-primary fw-semibold" role="button"> Reserve</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

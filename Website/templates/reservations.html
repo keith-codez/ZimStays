@@ -1,0 +1,119 @@
+{% extends "master.html" %}
+{% load crispy_forms_tags %}
+{% block header_text %}Reservations{% endblock %}
+{% block sub_header_text %}{{ home.title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="container col-lg-6 col-xl-6 col-xxl-8 py-2" style="max-height: 550px;">
+        <div class="row h-100">
+            <!-- First column (left) -->
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 col-xxl-6">
+                {% if home %}
+                <a href="{% url 'home_detail' home.id %}" target="_blank">
+                    <img src="{{ home.images.first.image.url }}" class="d-block w-100 h-100 rounded-2" alt="Image" style="min-height: 300px; max-height: 500px; object-fit: cover;">
+                </a>
+                {% else %}
+                <p>No image available.</p>
+                {% endif %}
+            </div>
+
+            <!-- Second column (right) -->
+            {% if home and home.images.count > 1 %}
+            <div class="col-md-6 col-lg-6 col-xl-6 col-xxl-6 d-none d-md-block">
+                <div class="container-fluid h-100" style="max-height: 500px;">
+                    <div class="row h-50">
+                        {% for image in home.images.all|slice:":4" %}
+                        <div class="col-6 p-1 h-100">
+                            <a href="{% url 'home_detail' home.id %}" target="_blank">
+                                <img src="{{ image.image.url }}" class="img-fluid w-100 h-100 rounded-2" alt="Additional Image" style="object-fit: cover;">
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <p>No additional images available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<!-- Sticky CTA for Larger Screens -->
+<div class="container col-lg-6 col-xl-6 col-xxl-5 py-5">
+    <div class="container-fluid text-center">
+        <a href="{% url 'home_detail' home.id %}" target="_blank" class="btn btn-outline-success btn-lg w-100">
+            View Full Details
+        </a>
+    </div>
+</div>
+
+<div class="container col-lg-6 col-xl-6 col-xxl-5 py-2 my-3 py-5 border-top">
+    <form method="POST" action="{% url 'make_reservation' home.id %}">
+        {% csrf_token %}
+        <div class="text-center">
+            <p class="fw-semibold fs-2 mb-4 ">Your Stay</p>
+        </div>
+        <div class="row">
+            <!-- Check-In and Check-Out Fields -->
+            <div class="col-6">
+                {{form.check_in_date|as_crispy_field}}
+            </div>
+            <div class="col-6">
+                {{form.check_in_time|as_crispy_field}}
+            </div>
+        </div>
+        <div class="row">
+            <!-- Check-In and Check-Out Fields -->
+            <div class="col-6">
+                {{form.check_out_date|as_crispy_field}}
+            </div>
+            <div class="col-6">
+                {{form.check_out_time|as_crispy_field}}
+            </div>
+        </div>
+        <div class="row mt-1">
+            <div class="col-6">
+                <label for="guests" class="fw-bold">Maximum capacity is {{ home.guests }} guests</label>
+            </div>
+            <div class="col-6">
+                {{form.guests|as_crispy_field}}
+            </div>
+        </div>
+        <div class="text-center border-top mt-5">
+            <p class="fw-semibold fs-2  my-5">Contact Details</p>
+        </div>
+        <div class='row'>
+            <div class="col-12 my-1">
+                {{form.first_name|as_crispy_field}}
+            </div>
+        </div>
+        <div class='row'>
+            <div class="col-12 my-1 ">
+                {{form.last_name|as_crispy_field}}
+            </div>
+        </div>
+        <div class='row'>
+            <div class="col-12 my-1 ">
+                {{form.email|as_crispy_field}}
+            </div>
+        </div>
+        <div class='row'>
+            <div class="col-12 my-1 ">
+                {{form.phone_number|as_crispy_field}}
+            </div>
+        </div>
+        <div class='row'>
+            <div class="col-12 my-1 ">
+                {{form.additional_info|as_crispy_field}}
+            </div>
+        </div>
+        <div class="container-fluid mt-5 py-4 position-sticky bottom-0 bg-body bg-opacity-75">
+            <button class="btn btn-primary fw-semibold btn-lg w-100" role="button"> Reserve</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

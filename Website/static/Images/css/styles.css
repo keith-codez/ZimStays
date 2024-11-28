@@ -1,0 +1,61 @@
+.form-select {
+    font-size: 18px;
+  }
+  /* For Chrome, Safari, Edge, and Opera */
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+  }
+
+  /* For Firefox */
+  input[type="number"] {
+      -moz-appearance: textfield;
+  }
+  .carousel-item img {
+    height: 350px; /* Set the height you want */
+    object-fit: cover; /* Crop the image to cover the container */
+    width: 100%; /* Ensure the width fills the container */
+  }
+  .fs-extra-small {
+    font-size: 13px; /* You can adjust this to your preferred size */
+}
+  .fs-small {
+    font-size: 14px; /* You can adjust this to your preferred size */
+}
+  @media (min-width: 768px) {
+    .carousel-item img {
+        height: 350px; /* Reduce height on larger screens */
+    }
+}
+
+@media (min-width: 992px) {
+    .carousel-item img {
+        height: 300px; /* Further reduce height on wider screens */
+    }
+}
+
+@media (min-width: 1200px) {
+    .carousel-item img {
+        height: 300px; /* Further reduce height on full screen */
+    }
+}
+
+.card-description {
+    overflow: hidden;              /* Ensures text is cut off */
+    text-overflow: ellipsis;       /* Adds ellipsis for truncated text */
+    display: -webkit-box;          /* Enables WebKit-specific box layout */
+    -webkit-box-orient: vertical;  /* Specifies vertical orientation for WebKit */
+    -webkit-line-clamp: 3;         /* Limits content to 3 lines (WebKit-specific) */
+    line-clamp: 3;                 /* Standard property for future compatibility */
+  }
+.carousel-inner img {
+height: 300px; /* Adjust the height as desired */
+object-fit: cover; /* Ensures the images scale proportionally */
+}
+
+@media (min-width: 1200px) { /* Specific for full screen or large screens */
+.carousel-inner img {
+  height: 500px; /* Increase height for large screens */
+}
+}

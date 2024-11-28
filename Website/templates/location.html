@@ -1,0 +1,112 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+Locations Page
+{% endblock %}
+
+{% block header_text %}
+Browse Our Homes
+{% endblock %}
+
+{% block sub_header_text %}
+Premium accommodation around Zimbabwe
+{% endblock %}
+
+{% block content %}
+
+<div class="container col-lg-6 col-xl-6 col-xxl-4 my-2 py-2">
+    <div class="row">
+        <!-- Destination Selection -->
+        <div class="col-12">
+            <form method="GET" action="{% url 'location' %}">
+                <div class="form-floating">
+                    <select name="city" class="form-select" aria-label="Select destination" onchange="this.form.submit()">
+                        <option value="">-- Select a destination --</option>
+                        {% for city in cities %}
+                            <option value="{{ city.name }}" {% if request.GET.city == city.name %} selected {% endif %}>
+                                {{ city.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <label for="floatingSelect">Select destination</label>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+        
+     
+
+
+
+{% if homes %}
+<div class="container-fluid border">
+    <div class="row g-2 justify-content-center">
+        {% for home in homes %}
+        <div class="my-5 col-lg-6 col-xl-4 col-xxl-3">
+            <div class="text-center my-2 border">
+                <div id="carouselExampleIndicators{{ home.id }}" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                      {% for image in home.images.all %}
+                      <button type="button" data-bs-target="#carouselExampleIndicators{{ home.id }}" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %} class="active" aria-current="true" {% endif %} aria-label="Slide {{ forloop.counter }}"></button>
+                      {% endfor %}
+                    </div>
+                    <div class="carousel-inner">
+                      {% for image in home.images.all %}
+                      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                        <a href="{% url 'home_detail' home.id %}" target="_blank">
+                            <img src="{{ image.image.url }}" class="d-block w-100" alt="Image {{ forloop.counter }}" style="height: 300px; object-fit: cover;">
+                        </a>
+                      </div>
+                      {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators{{ home.id }}" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators{{ home.id }}" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="my-3"><a class="fw-normal fs-5" href="{% url 'home_detail' home.id %}" target="_blank">{{ home.title }}</a></div>
+                <div class=" px-3">
+                    <div class="fw-normal fs-small">
+                      <span class="d-inline">{{home.guests}} guests</span>,
+                      <span class="d-inline">{{home.beds}} beds</span>,
+                      <span class="d-inline">{{home.bathrooms}} bathrooms</span>
+                    </div>
+                  
+                    <!-- Description section below -->
+                    <div class="mt-2 text-start card-description">
+                      <p class="fw-normal fs-extra-small">{{home.subheading}}</p>
+                    </div>
+                    <div class="text-start">
+                        <p class="fw-bold fs-extra-small">${{home.price_per_night}} per night </p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-star-fill text-warning me-1"></i> <!-- Filled star icon -->
+                        <p class="fw-bold fs-extra-small mb-0">{{ home.rating }} stars</p> <!-- Add rating text -->
+                    </div>
+                </div>
+                <div class="d-grid col-6 mx-auto gap-2 mb-4">
+                    <a href="{% url 'make_reservation' home.id %}" target="_blank" class="btn btn-primary fw-semibold" role="button"> Reserve</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% else %}
+<div class="alert alert-warning" role="alert">
+    No homes to show at this time
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+ 
+{% endblock %}
