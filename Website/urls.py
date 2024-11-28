@@ -4,7 +4,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('index', views.index, name='index'),
+    path('', views.index, name='index'),
     path('location', views.location, name='location'),
     path('<int:home_id>', views.home_detail, name='home_detail'),
     path('reservations/<int:home_id>/', views.make_reservation, name='make_reservation'),  # Update view function name here
